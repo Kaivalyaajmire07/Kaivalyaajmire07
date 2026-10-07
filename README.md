@@ -1,123 +1,174 @@
-import matplotlib.pyplot as plt
- import pandas as pd
- import numpy as np
- from matplotlib.animation import FuncAnimation
- from IPython.display import HTML, display
- import ipywidgets as widgets
- import textwrap
- 
- # AI Milestone Data
- dates = [
-     "1950-06-01", "1956-08-31", "1966-01-01", "1980-01-01", "1997-05-11",
-     "2006-10-14", "2011-10-04", "2016-03-15", "2018-05-08", "2023-11-30",
-     "2030-01-01"
- ]
- events = [
-     "Turing Test Proposed", "Dartmouth AI Workshop", "First Chatbot (ELIZA)",
-     "Expert Systems Era", "Deep Blue Defeats Kasparov", "Netflix Prize",
-     "Siri Introduced", "AlphaGo Defeats Lee Sedol", "Google Duplex Announced",
-     "ChatGPT Released", "Artificial General Intelligence Achieved"
- ]
- descriptions = [
-     "Alan Turing proposed the Turing Test as a way to evaluate machine intelligence.",
-     "The Dartmouth AI Conference in 1956 was the birth of artificial intelligence as an academic field.",
-     "Joseph Weizenbaum developed ELIZA, the first chatbot, in 1966. It simulated conversation using pattern matching.",
-     "The 1980s saw the rise of expert systems, software that mimicked human decision-making in specialized domains.",
-     "IBM’s Deep Blue defeated world chess champion Garry Kasparov in 1997, marking a major milestone in AI.",
-     "Netflix launched a $1M competition in 2006 to improve its recommendation algorithm, pushing forward machine learning advancements.",
-     "Apple introduced Siri in 2011, pioneering mainstream AI-powered voice assistants.",
-     "AlphaGo's 2016 victory over Go champion Lee Sedol demonstrated the power of deep reinforcement learning.",
-     "Google unveiled Duplex in 2018, an AI system capable of realistic human-like conversations.",
-     "OpenAI released ChatGPT in 2023, revolutionizing AI-driven communication and natural language processing.",
-     "By 2030, AI is expected to reach Artificial General Intelligence (AGI), achieving human-like reasoning and problem-solving."
- ]
- 
- # Converssion of Data into DataFrame
- ai_timeline_df = pd.DataFrame({"Date": dates, "Event": events, "Description": descriptions})
- ai_timeline_df["Date"] = pd.to_datetime(ai_timeline_df["Date"])
- 
- # Create Figure & Axes (Single Instance)
- fig, ax = plt.subplots(figsize=(10, 12))
- 
- # Draw a SINGLE Timeline* at x=0
- ax.plot([0] * len(ai_timeline_df), ai_timeline_df["Date"], "-o", color="black", markerfacecolor="white")
- 
- # Set Y-axis Labels Properly
- ax.set_yticks(ai_timeline_df["Date"])
- ax.set_yticklabels(ai_timeline_df["Date"].dt.year, fontsize=12)
- ax.set_xlim(-5, 5)  # Keeps everything centered
- 
- #  Store Annotations
- annotations = []
- 
- # Animation Update Function
- def update(frame):
-     idx = frame
-     dt, event, description = ai_timeline_df.iloc[idx]
-     dt_str = dt.strftime("%Y")
- 
-     # Alternate Left/Right Placement*
-     event_x = -3 if idx % 2 == 0 else 3
- 
-     # Remove Previous Annotations Before Drawing New
-     while annotations:
-         ann = annotations.pop()
-         ann.remove()
- 
-     # Event Label
-     event_annotation = ax.annotate(
-         f"{dt_str}\n{event}", xy=(0, dt),
-         xytext=(event_x, dt + pd.Timedelta(days=700)),
-         arrowprops=dict(arrowstyle="-", color="red", linewidth=0.8),
-         ha="center", va="bottom", fontsize=12, fontweight="bold"
-     )
- 
-     # Wrapped Text for Description
-     wrapped_description = textwrap.fill(description, width=40)
- 
-     # Fix Description Box Placement
-     description_annotation = ax.annotate(
-         wrapped_description, xy=(0, dt),
-         xytext=(event_x, dt - pd.Timedelta(days=700)),
-         ha="center", va="top", fontsize=10,
-         bbox=dict(facecolor='yellow', alpha=0.7, edgecolor='black', boxstyle='round,pad=0.3')
-     )
- 
-     annotations.append(event_annotation)
-     annotations.append(description_annotation)
- 
- 
- plt.close(fig)  #Fix duplicate timeline issue
- 
- # Create Animation 
- ani = FuncAnimation(fig, update, frames=len(ai_timeline_df), repeat=False, interval=1000)
- 
- #Ensure Buttons Control a Single Animation Instance
- play_button = widgets.Button(description="Play")
- pause_button = widgets.Button(description="Pause")
- slow_button = widgets.Button(description="Slow Down")
- 
- running = True
- 
- def play_animation(_):
-     global running
-     if not running:
-         ani.event_source.start()
-         running = True
- 
- def pause_animation(_):
-     global running
-     if running:
-         ani.event_source.stop()
-         running = False
- 
- def slow_animation(_):
-     ani.event_source.interval += 500
- 
- play_button.on_click(play_animation)
- pause_button.on_click(pause_animation)
- slow_button.on_click(slow_animation)
- 
- # Display updated animation with all fixes
- display(widgets.HBox([play_button, pause_button, slow_button]))
- HTML(ani.to_jshtml())
+# Hi, I'm Kaivalya Ajmire 👋
+
+### AI & Data Science | Machine Learning | Data Analytics | RAG & LLMs | Backend Development
+
+I'm a final-year **B.Tech student in Artificial Intelligence & Data Science** passionate about building intelligent, data-driven applications using Machine Learning, Generative AI, and Data Analytics.
+
+I enjoy turning data and ideas into practical solutions — from predictive ML systems and analytics dashboards to RAG-based applications and AI-powered tools.
+
+- 🎓 Final-year B.Tech in **Artificial Intelligence & Data Science**
+- 👨‍💻 **Team Lead & Backend/ML Developer** for my final-year project
+- 🤖 Interested in **Machine Learning, Artificial Intelligence & Data Science**
+- 📊 Interested in **Data Analytics, Business Intelligence & Data-driven solutions**
+- ⚙️ Hands-on experience with **Python, FastAPI, SQL & PostgreSQL**
+- 🧠 Working with **RAG, LLMs, LangChain & AI applications**
+- 🚀 Building practical AI/ML projects to solve real-world problems
+
+---
+
+## 🛠️ Technical Skills
+
+### Programming
+`Python` `R` `Java` `SQL`
+
+### Data Science & Machine Learning
+`Pandas` `NumPy` `Scikit-learn` `Matplotlib`
+
+`EDA` `Data Cleaning` `Feature Engineering`  
+`Classification` `Regression` `Clustering` `Predictive Modeling`
+
+### Artificial Intelligence & Generative AI
+`Machine Learning` `RAG` `LLMs` `LangChain` `NLP` `SHAP`
+
+### Data Analytics & Visualization
+`Power BI` `Tableau` `DAX` `Streamlit`
+
+### Backend & APIs
+`FastAPI` `REST APIs`
+
+### Databases
+`PostgreSQL` `MySQL` `MongoDB` `Supabase`
+
+### Tools
+`Git` `GitHub` `Jupyter Notebook` `Google Colab` `VS Code`
+
+---
+
+# 🚀 Featured Projects
+
+## 🎓 AI-Powered Student Placement Performance Analytics & Dashboard
+
+**Team Lead | Backend & ML Developer**
+
+An AI-powered placement analytics platform designed to analyze student academic and behavioral data and predict placement readiness.
+
+### My Contributions
+
+- Led the project team and coordinated project development and tasks
+- Developed backend services using **FastAPI**
+- Developed Machine Learning models for **placement readiness prediction**
+- Implemented **Random Forest** for predictive analysis
+- Used **K-Means** for student performance grouping
+- Integrated **SHAP** for model explainability
+- Worked on **PostgreSQL database integration**
+- Developed APIs for student analytics, prediction and performance insights
+
+**Tech Stack:**  
+`Python` `FastAPI` `PostgreSQL` `SQL` `Machine Learning`  
+`Random Forest` `K-Means` `SHAP` `React.js`
+
+---
+
+## 🤖 Redundant Effort Radar
+
+An agentic **RAG-based system** designed to identify potentially duplicated work across teams and generate actionable recommendations.
+
+### Highlights
+
+- Semantic retrieval for finding related work
+- LLM-based reasoning
+- RAG pipeline for contextual analysis
+- Generates actionable recommendations
+
+**Tech Stack:**  
+`Python` `LangChain` `RAG` `LLM` `React.js`
+
+---
+
+## 💼 AI Job Search Dashboard
+
+An AI-powered job search dashboard integrating real-time job listings with NLP-based skill extraction and intelligent job recommendations.
+
+### Highlights
+
+- Real-time job listing integration
+- NLP-based skill extraction
+- Intelligent job recommendations
+- Advanced search and filtering
+- API-based job data retrieval
+
+**Tech Stack:**  
+`Python` `Streamlit` `AI` `NLP` `JSearch API` `RapidAPI` `Requests`
+
+---
+
+## 📊 Restaurant Performance Analysis
+
+An interactive analytics project focused on customer behavior, sales trends, business KPIs and restaurant performance.
+
+**Tech Stack:**  
+`Python` `Pandas` `NumPy` `Matplotlib` `Power BI`
+
+---
+
+# 💼 Internships & Experience
+
+- **Google AI & Machine Learning Virtual Internship**
+- **AWS Data Engineering Virtual Internship**
+- **Java Full Stack Development Virtual Internship**
+- **Zscaler Networking Virtual Internship**
+- **EduSkills Virtual Internships**
+- **Altair Data Science Master**
+
+---
+
+# 📜 Certifications
+
+- **NPTEL (IIT Madras)** — Database Management System
+- **NPTEL (IIT Madras)** — Python for Data Science
+- **Tata Forage** — Data Visualization
+- **Spoken Tutorial (IIT Bombay)** — Python for Machine Learning
+- **Simplilearn** — Introduction to Data Analytics
+
+---
+
+# 🎯 Areas of Interest
+
+- Data Science
+- Machine Learning
+- Data Analytics
+- Artificial Intelligence
+- Generative AI
+- RAG & LLM Applications
+- Backend Development
+- Business Intelligence
+
+---
+
+# 📈 Currently Working On
+
+🔹 AI-powered student placement analytics  
+🔹 Machine Learning & predictive analytics  
+🔹 Generative AI & RAG applications  
+🔹 Data visualization and business intelligence  
+🔹 FastAPI backend development  
+🔹 AI-powered real-world applications  
+
+---
+
+# 🤝 Let's Connect
+
+📧 **Email:** ajmirekaivalya@gmail.com
+
+💼 **LinkedIn:**  
+[Connect with me on LinkedIn](https://linkedin.com/in/kaivalya-mohan-ajmire-ab05bb290)
+
+🌐 **Portfolio:**  
+[Visit my Portfolio](https://v0-hello-there-rho-smoky.vercel.app/)
+
+💻 **GitHub:**  
+[Kaivalyaajmire07](https://github.com/Kaivalyaajmire07)
+
+---
+
+### 💡 Turning data into insights, models into solutions, and ideas into real-world applications.
